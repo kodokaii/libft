@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2023/10/18 01:38:39 by nlaerema         ###   ########.fr       */
+/*   Updated: 2023/10/18 14:37:49 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	{
 		dst[len] = 0;
 		while (len--)
-			dst[len] = (*f)(len, dst[len]);
+			dst[len] = (*f)(len, s[len]);
 	}
 	return (dst);
 }

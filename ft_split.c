@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2023/10/18 00:59:47 by nlaerema         ###   ########.fr       */
+/*   Updated: 2023/10/18 15:50:02 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ static size_t	ft_count_split(char const *s, char c)
 			len++;
 		if (len)
 			split_count++;
-		s += len + 1;
+		else
+			s++;
+		s += len;
 	}
 	return (split_count);
 }

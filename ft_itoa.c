@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2023/10/18 01:30:48 by nlaerema         ###   ########.fr       */
+/*   Updated: 2023/10/18 13:42:38 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ static size_t	ft_nblen(int n)
 		len = 2;
 		n = -n;
 	}
-	while (n / 10)
+	while ((unsigned int)n / 10)
 	{
 		len++;
-		n /= 10;
+		n = (unsigned int)n / 10;
 	}
 	return (len);
 }
@@ -50,8 +50,8 @@ char	*ft_itoa(int n)
 		dst[len] = 0;
 		while (i < len--)
 		{
-			dst[len] = '0' + n % 10;
-			n /= 10;
+			dst[len] = '0' + (unsigned int)n % 10;
+			n = (unsigned int)n / 10;
 		}
 	}
 	return (dst);

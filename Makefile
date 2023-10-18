@@ -47,23 +47,23 @@ SRC_BONUS	= ft_lstnew.c\
 
 OBJ 		= $(SRC:.c=.o)
 OBJ_BONUS 	= $(SRC_BONUS:.c=.o)
-LIB			= libft.a
+NAME		= libft.a
 
-all: $(LIB)
+all: $(NAME)
 
 bonus : $(OBJ) $(OBJ_BONUS)
-	ar crs $(LIB) $(OBJ) $(OBJ_BONUS)
+	ar crs $(NAME) $(OBJ) $(OBJ_BONUS)
 
-$(LIB): $(OBJ)
-	ar crs $(LIB) $(OBJ)
+$(NAME): $(OBJ)
+	ar crs $(NAME) $(OBJ)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c -I $(HEAD) $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 	
 clean:
 	rm -f $(OBJ) $(OBJ_BONUS)
 
 fclean: clean
-	rm -f $(LIB)
+	rm -f $(NAME)
 
 re: fclean all

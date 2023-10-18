@@ -6,7 +6,7 @@
 /*   By: nlaerema <nlaerema@student.42lehavre.fr>	+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2023/10/18 15:50:02 by nlaerema         ###   ########.fr       */
+/*   Updated: 2023/10/18 20:43:52 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,46 +26,65 @@ static char	*ft_strndup(const char *s, size_t n)
 	return (dst);
 }
 
-static size_t	ft_count_split(char const *s, char c)
+static char	**ft_split_free(char **split, size_t i)
 {
-	size_t	split_count;
-	size_t	len;
+	while (i--)
+		free(split[i]);
+	free(split);
+	return (NULL);
+}
 
-	split_count = 0;
+static char	*ft_find_next_split(char const *s, char c)
+{
 	while (*s)
 	{
-		len = 0;
-		while (s[len] && s[len] != c)
-			len++;
-		if (len)
+		if (*s == c)
+			return ((char *)s);
+		s++;
+	}
+	return ((char *)s);
+}
+
+static size_t	ft_split_count(char const *s, char c)
+{
+	size_t		split_count;
+	char const	*current;
+
+	current = s;
+	split_count = 0;
+	while (*current)
+	{
+		current = ft_find_next_split(s, c);
+		if (0 < current - s)
 			split_count++;
-		else
-			s++;
-		s += len;
+		s = current + 1;
 	}
 	return (split_count);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	size_t	i;
-	size_t	len;
-	size_t	split_count;
-	char	**split;
+	size_t		i;
+	size_t		split_count;
+	char const	*current;
+	char		**split;
 
-	split_count = ft_count_split(s, c);
+	split_count = ft_split_count(s, c);
 	split = malloc((split_count + 1) * sizeof(char *));
 	if (split)
 	{
 		i = 0;
 		while (i < split_count)
 		{
-			len = 0;
-			while (s[len] && s[len] != c)
-				len++;
-			if (len)
-				split[i++] = ft_strndup(s, len);
-			s += len + 1;
+			current = ft_find_next_split(s, c);
+			if (0 < current - s)
+			{
+				split[i] = ft_strndup(s, current - s);
+				if (!split[i])
+					return (ft_split_free(split, i));
+				i++;
+			}
+			s = current + 1;
 		}
 		split[i] = NULL;
 	}
